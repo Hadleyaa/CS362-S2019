@@ -684,6 +684,7 @@ int smithyEffect(int card, int choice1, int choice2, int choice3, struct gameSta
         //discard card from hand
         discardCard(handPos, currentPlayer, state, 0);
 	}
+    
 			
     return 0;
 }
@@ -695,7 +696,7 @@ int cutpurseEffect(int card, int choice1, int choice2, int choice3, struct gameS
     int k;
     int additional = 2;
     
-    updateCoins(currentPlayer, state, additional - 1);
+    updateCoins(currentPlayer, state, additional-1);
     for (i = 0; i < state->numPlayers; i++){
 	  if (i != currentPlayer){
 	      for (j = 0; j < state->handCount[i]; j++){
@@ -1216,7 +1217,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case sea_hag:
-          return remodelEffect(card, choice1, choice2, choice3, state, handPos, bonus, currentPlayer);
+          return seahagEffect(card, choice1, choice2, choice3, state, handPos, bonus, currentPlayer);
 		
     case treasure_map:
       //search hand for another treasure_map
