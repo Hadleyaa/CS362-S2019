@@ -684,8 +684,7 @@ int smithyEffect(int card, int choice1, int choice2, int choice3, struct gameSta
         //discard card from hand
         discardCard(handPos, currentPlayer, state, 0);
 	}
-    
-			
+    		
     return 0;
 }
 
