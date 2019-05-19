@@ -21,8 +21,6 @@ badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 testBuyCard: testDrawCard.c dominion.o rngs.o
 	gcc -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
-<<<<<<< Updated upstream
-=======
 testSmithy: unittest1.c dominion.o rngs.o
 	gcc -o testSmithy -g unittest1.c dominion.o rngs.o $(CFLAGS)
 
@@ -59,15 +57,12 @@ randomtestcard3: randomtestcard3.c dominion.o rngs.o
 randomtestcard3b: randomtestcard3b.c dominion.o rngs.o
 	gcc -o randomtestcard3b -g  randomtestcard3b.c dominion.o rngs.o $(CFLAGS)
 
->>>>>>> Stashed changes
 testAll: dominion.o testSuite.c
 	gcc -o testSuite testSuite.c -g  dominion.o rngs.o $(CFLAGS)
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
-<<<<<<< Updated upstream
-=======
 randomtestresultsb: randomtestcard1 randomtestcard2 randomtestcard3b
 
 	./randomtestcard1 >> randomtestresults.out
@@ -130,12 +125,10 @@ unittestresults: testSmithy testAdventurer testSeahag testCutpurse cardSmithy ca
 	gcov -f -b dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
->>>>>>> Stashed changes
 runtests: testDrawCard 
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
-
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
@@ -143,9 +136,5 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-<<<<<<< Updated upstream
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
-=======
 	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testSmithy testSmithy.exe testRemodel testRemodel.exe testSeahag testSeahad.exe testCutpurse testCutpurse.exe randomtestcard1 randomtestcard1.exe randomtestcard2 randomtestcard2.exe randomtestcard3 randomtestcard3.exe randomtestcard3b randomtestcard3b.exe
 	rm -r *dSYM
->>>>>>> Stashed changes
