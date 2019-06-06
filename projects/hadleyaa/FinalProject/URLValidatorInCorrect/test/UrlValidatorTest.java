@@ -497,6 +497,93 @@ protected void setUp() {
        assertTrue(validator.isValid("http://example.com/serach?address=Main%20Avenue"));
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
+   
+   
+   public void testValidatorPath() {
+	   UrlValidator validator = new UrlValidator();
+	   assertTrue(validator.isValid("http://example.com"));
+	   assertTrue(validator.isValid("http://example.com/"));
+	   assertTrue(validator.isValid("http://example.com/#"));
+	   assertTrue(validator.isValid("http://example.com/$testpath"));
+	   assertTrue(validator.isValid("http://example.com/23tests"));
+	   assertTrue(validator.isValid("http://example.com/testpath"));
+	   assertTrue(validator.isValid("http://example.com/#/testpath"));
+	   assertFalse(validator.isValid("http://example.com/testpath/testpath2//testfile"));
+	   assertFalse(validator.isValid("http://example.com/../testpath1/testpath2/testpath3"));
+	   assertFalse(validator.isValid("http://example.com/testpath//testfile"));
+	   assertFalse(validator.isValid("http://example.com/.."));
+	   assertFalse(validator.isValid("http://example.com/../"));
+	   assertFalse(validator.isValid("http://example.com/../testpath"));
+	   assertFalse(validator.isValid("http://example.com//"));
+	   
+	   
+   }
+   
+   public void testValidatorPathOptions() {
+	   UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+	   assertTrue(validator.isValid("http://example.com"));
+	   assertTrue(validator.isValid("http://example.com/"));
+	   assertTrue(validator.isValid("http://example.com/#"));
+	   assertTrue(validator.isValid("http://example.com/$testpath"));
+	   assertTrue(validator.isValid("http://example.com/23tests"));
+	   assertTrue(validator.isValid("http://example.com/testpath"));
+	   assertTrue(validator.isValid("http://example.com/#/testpath"));
+	   assertTrue(validator.isValid("http://example.com/testpath/testpath2//testfile"));
+	   assertFalse(validator.isValid("http://example.com/../testpath1/testpath2/testpath3"));
+	   assertTrue(validator.isValid("http://example.com/testpath//testfile"));
+	   assertFalse(validator.isValid("http://example.com/.."));
+	   assertFalse(validator.isValid("http://example.com/../"));
+	   assertFalse(validator.isValid("http://example.com/../testpath"));
+	   assertFalse(validator.isValid("http://example.com//"));
+   }
+   
+   public void testValidatorQuery() {
+	   UrlValidator urlValidator = new UrlValidator();
+	   assertTrue(urlValidator.isValid("http://google.com?klsda_fasd)f9(#@*@^&"));
+	   assertTrue(urlValidator.isValid("http://google.com?fhk34"));
+	   assertTrue(urlValidator.isValid("http://google.com?23894u279"));
+	   assertTrue(urlValidator.isValid("http://google.com?abracadabra"));
+	   assertTrue(urlValidator.isValid("http://google.com?action=view"));
+	   assertTrue(urlValidator.isValid("http://google.com?q=v"));
+	   assertTrue(urlValidator.isValid("http://google.com"));
+	   assertFalse(urlValidator.isValid("http://google.com? action=view"));
+	   assertFalse(urlValidator.isValid("http://google.com? "));
+	   assertFalse(urlValidator.isValid("http://google.com?__-;- /..,;p"));
+	   assertFalse(urlValidator.isValid("http://google.com?     "));
+	   
+   }
+   
+   public void testValidatorAllValid() {
+	   String[] schemes = {"http","https", "ftp", "h3t"};
+	   UrlValidator urlValidator = new UrlValidator(schemes);
+	   assertTrue(urlValidator.isValid("http://www.google.com:80/test1?action=view"));
+	   assertTrue(urlValidator.isValid("ftp://www.google.com.:65535/t123"));
+	   assertTrue(urlValidator.isValid("h3t://go.com:0/$23"));
+	   assertTrue(urlValidator.isValid("http://go.au:80/test1/?action=view"));
+	   assertTrue(urlValidator.isValid("ftp://0.0.0.0:65535?action=edit&mode=up"));
+	   assertTrue(urlValidator.isValid("h3t://255.255.255.255:0/test1/file"));
+	   assertTrue(urlValidator.isValid("http://255.com:80/$23/file?action=view"));
+	   assertTrue(urlValidator.isValid("https://www.cnn.com/2019/06/05/us/serena-williams-forbes-self-made-women-trnd/index.html"));
+	   assertTrue(urlValidator.isValid("https://en.wikipedia.org/wiki/Neolithic_British_Isles"));
+	   assertTrue(urlValidator.isValid("https://www.youtube.com/watch?v=qchPLaiKocI"));
+	   assertTrue(urlValidator.isValid("https://github.com/Hadleyaa/CS362-S2019/tree/ProjectPartB-RandomTests/projects/hadleyaa"));
+	   assertTrue(urlValidator.isValid("https://www.cbs.com/sitesearch/results/?q=looking\\%20for\\%20things"));
+	   assertTrue(urlValidator.isValid("https://www.target.com/s?searchTerm=search+ter%2C"));
+	   assertTrue(urlValidator.isValid("https://www.google.com/maps/place/Paris,+France/@48.8589507,2.27702,12z/data=!3m1!4b1!4m5!3m4!1s0x47e66e1f06e2b70f:0x40b82c3688c9460!8m2!3d48.856614!4d2.3522219"));
+   }
+
+   
+   public void testValidatorInvalid() {
+	   UrlValidator validator = new UrlValidator();
+	   assertFalse(validator.isValid(""));
+	   assertFalse(validator.isValid(null));
+	   assertFalse(validator.isValid("2463051438720343124123"));
+	   assertFalse(validator.isValid("fjnaujfaSDFjrgASDFGJadGJSADgjk"));
+	   assertFalse(validator.isValid("_()$@@#$|[..><;/%(&,.<.;:[.]"));
+	   assertFalse(validator.isValid("agrf76g4hq;43lkf,.re.jfi3;834fewrp[]43p03-f34"));
+	   assertFalse(validator.isValid("3hppt:/;:|ex_am_p_l,corp/..//test$ing"));
+   }
+
 
    //-------------------- Test data for creating a composite URL
    /**
