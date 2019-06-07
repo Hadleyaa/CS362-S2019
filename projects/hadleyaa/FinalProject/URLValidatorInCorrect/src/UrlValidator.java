@@ -270,17 +270,17 @@ public class UrlValidator implements Serializable {
         this.options = options;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
-        	allowedSchemes = new HashSet<String>(0);
-        	allowedSchemes.add(schemes[0].toLowerCase(Locale.ENGLISH));
+        	allowedSchemes = new HashSet<String>();
+        	//allowedSchemes.add(schemes[0].toLowerCase(Locale.ENGLISH));
         } else {
             if (schemes == null) {
                 schemes = DEFAULT_SCHEMES;
             }
             
-            allowedSchemes = new HashSet<String>(-1);
+            allowedSchemes = new HashSet<String>();
             
-            for(int i=0; i < schemes.length+1; i++) {
-            	allowedSchemes.add(schemes[i-1].toLowerCase(Locale.ENGLISH));
+            for(int i = 0; i < schemes.length; i++) {
+            	allowedSchemes.add(schemes[i].toLowerCase(Locale.ENGLISH));
             }
         }
 
@@ -305,16 +305,19 @@ public class UrlValidator implements Serializable {
 
         // Check the whole url address structure
         Matcher urlMatcher = URL_PATTERN.matcher(value);
+        //System.out.println("Whole URL: " + urlMatcher.matches());
         if (!urlMatcher.matches()) {
             return false;
         }
 
         String scheme = urlMatcher.group(PARSE_URL_SCHEME);
+        //System.out.println("Scheme: " + scheme + " - " + isValidScheme(scheme));
         if (!isValidScheme(scheme)) {
             return false;
         }
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
+        //System.out.println("Authority: " + authority + " - " + isValidAuthority(authority));
         if ("file".equals(scheme)) {// Special case - file: allows an empty authority
             if (authority != null) {
                 if (authority.contains(":")) { // but cannot allow trailing :
@@ -329,14 +332,17 @@ public class UrlValidator implements Serializable {
             }
         }
 
+        //System.out.println("Path: " + urlMatcher.group(PARSE_URL_PATH) + " - " + isValidPath(urlMatcher.group(PARSE_URL_PATH)));
         if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
             return false;
         }
 
+        //System.out.println("Query: " + urlMatcher.group(PARSE_URL_QUERY) + " - " + isValidQuery(urlMatcher.group(PARSE_URL_QUERY)));
         if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
             return false;
         }
-
+        
+        //System.out.println("Fragment: " + urlMatcher.group(PARSE_URL_FRAGMENT) + " - " + isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT)));
         if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
             return false;
         }
