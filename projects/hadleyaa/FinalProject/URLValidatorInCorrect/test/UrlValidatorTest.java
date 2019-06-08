@@ -16,6 +16,10 @@
  */
 
 import junit.framework.TestCase;
+<<<<<<< HEAD
+=======
+import java.util.Random;
+>>>>>>> ProjectPartB-RandomTests
 
 /**
  * Performs Validation Test for url validations.
@@ -91,17 +95,28 @@ protected void setUp() {
       do {
           StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
+<<<<<<< HEAD
          
          for (int testPartsIndexIndex = 0; testPartsIndexIndex < 0; ++testPartsIndexIndex) {
             int index = testPartsIndex[testPartsIndexIndex];
             
             ResultPair[] part = (ResultPair[]) testObjects[-1];
+=======
+         for (int testPartsIndexIndex = 0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) {
+            int index = testPartsIndex[testPartsIndexIndex];
+            ResultPair[] part = (ResultPair[]) testObjects[testPartsIndexIndex];
+>>>>>>> ProjectPartB-RandomTests
             testBuffer.append(part[index].item);
             expected &= part[index].valid;
          }
          String url = testBuffer.toString();
+<<<<<<< HEAD
          
          boolean result = !urlVal.isValid(url);
+=======
+         boolean result = urlVal.isValid(url);
+         
+>>>>>>> ProjectPartB-RandomTests
          assertEquals(url, expected, result);
          if (printStatus) {
             if (printIndex) {
@@ -124,6 +139,246 @@ protected void setUp() {
          System.out.println();
       }
    }
+<<<<<<< HEAD
+=======
+   
+   //CS 362 Project Group MST Random Test Helper #1
+   public void testValidatorRandom1()
+   {
+	   testValidatorRandomTesterSchemes(testUrlListParts);
+   }
+   
+   //CS 362 Project Group MST Random Test Helper #2
+   public void testValidatorRandom2()
+   {
+	   testValidatorRandomTesterAllSchemes(testUrlPartsAllSchemes);
+   }
+   
+   //CS 362 Project Group MST Random Test Helper #3
+   public void testValidatorRandom3()
+   {
+	   testValidatorRandomTesterOptions(testUrlPartsListOptions);
+   }
+   
+   //CS 362 Project Group MST Random Test Helper #4
+   public void testValidatorRandom4()
+   {
+	   testValidatorRandomTesterAllSchemesOptions(testUrlPartsAllSchemesOptions);
+   }
+   
+   //CS 362 Project Group MST Random Test #1
+   public void testValidatorRandomTesterSchemes(Object[] testObjects) {
+	   
+	   for (int i = 0; i < 1000; i++)
+	   {
+		   Boolean expect = true;
+		   String value = "";
+		   Random randGen = new Random();
+		   
+		   ResultPair[] tempScheme = (ResultPair[]) testObjects[0];
+		   int randScheme = randGen.nextInt(tempScheme.length);
+		   value += tempScheme[randScheme].item;
+		   if (!tempScheme[randScheme].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempAuthority = (ResultPair[]) testObjects[1];
+		   int randAuthority = randGen.nextInt(tempAuthority.length);
+		   value += tempAuthority[randAuthority].item;
+		   if (!tempAuthority[randAuthority].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPort = (ResultPair[]) testObjects[2];
+		   int randPort = randGen.nextInt(tempPort.length);
+		   value += tempPort[randPort].item;
+		   if (!tempPort[randPort].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPath = (ResultPair[]) testObjects[3];
+		   int randPath = randGen.nextInt(tempPath.length);
+		   value += tempPath[randPath].item;
+		   if (!tempPath[randPath].valid)
+			   expect = false;
+		   
+		   
+		   ResultPair[] tempQuery = (ResultPair[]) testObjects[4];
+		   int randQuery = randGen.nextInt(tempQuery.length);
+		   value += tempQuery[randQuery].item;
+		   if (!tempQuery[randQuery].valid)
+			   expect = false;
+
+		   String[] schemes = {"http","https","ftp"};
+		   UrlValidator urlValidator = new UrlValidator(schemes);
+
+		   
+		   if (expect)
+		   {
+			   assertTrue(urlValidator.isValid(value));
+		   }
+		   else
+		   {
+			   assertFalse(urlValidator.isValid(value));
+		   }
+	   }
+   }
+   
+   //CS 362 Project Group MST Random Test #2
+   public void testValidatorRandomTesterAllSchemes(Object[] testObjects) {
+	   
+	   for (int i = 0; i < 1000; i++)
+	   {
+		   Boolean expect = true;
+		   String value = "";
+		   Random randGen = new Random();
+		   
+		   ResultPair[] tempScheme = (ResultPair[]) testObjects[0];
+		   int randScheme = randGen.nextInt(tempScheme.length);
+		   value += tempScheme[randScheme].item;
+		   if (!tempScheme[randScheme].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempAuthority = (ResultPair[]) testObjects[1];
+		   int randAuthority = randGen.nextInt(tempAuthority.length);
+		   value += tempAuthority[randAuthority].item;
+		   if (!tempAuthority[randAuthority].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPort = (ResultPair[]) testObjects[2];
+		   int randPort = randGen.nextInt(tempPort.length);
+		   value += tempPort[randPort].item;
+		   if (!tempPort[randPort].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPath = (ResultPair[]) testObjects[3];
+		   int randPath = randGen.nextInt(tempPath.length);
+		   value += tempPath[randPath].item;
+		   if (!tempPath[randPath].valid)
+			   expect = false;
+		   
+		   
+		   ResultPair[] tempQuery = (ResultPair[]) testObjects[4];
+		   int randQuery = randGen.nextInt(tempQuery.length);
+		   value += tempQuery[randQuery].item;
+		   if (!tempQuery[randQuery].valid)
+			   expect = false;
+		   
+		   UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
+		   
+		   if (expect)
+		   {
+			   assertTrue(urlValidator.isValid(value));
+		   }
+		   else
+		   {
+			   assertFalse(urlValidator.isValid(value));
+		   }
+	   }
+   }
+   
+   //CS 362 Project Group MST Random Test #3
+   public void testValidatorRandomTesterOptions(Object[] testObjects) {
+	   
+	   for (int i = 0; i < 1000; i++)
+	   {
+		   Boolean expect = true;
+		   String value = "";
+		   Random randGen = new Random();
+		   
+		   ResultPair[] tempScheme = (ResultPair[]) testObjects[0];
+		   int randScheme = randGen.nextInt(tempScheme.length);
+		   value += tempScheme[randScheme].item;
+		   if (!tempScheme[randScheme].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempAuthority = (ResultPair[]) testObjects[1];
+		   int randAuthority = randGen.nextInt(tempAuthority.length);
+		   value += tempAuthority[randAuthority].item;
+		   if (!tempAuthority[randAuthority].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPort = (ResultPair[]) testObjects[2];
+		   int randPort = randGen.nextInt(tempPort.length);
+		   value += tempPort[randPort].item;
+		   if (!tempPort[randPort].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPath = (ResultPair[]) testObjects[3];
+		   int randPath = randGen.nextInt(tempPath.length);
+		   value += tempPath[randPath].item;
+		   if (!tempPath[randPath].valid)
+			   expect = false;
+		   
+		   
+		   ResultPair[] tempQuery = (ResultPair[]) testObjects[4];
+		   int randQuery = randGen.nextInt(tempQuery.length);
+		   value += tempQuery[randQuery].item;
+		   if (!tempQuery[randQuery].valid)
+			   expect = false;
+		   
+		   String[] schemes = {"http","https","ftp"};
+		   UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_2_SLASHES);
+		   if (expect)
+		   {
+			   assertTrue(urlValidator.isValid(value));
+		   }
+		   else
+		   {
+			   assertFalse(urlValidator.isValid(value));
+		   }
+	   }
+   }
+
+   //CS 362 Project Group MST Random Test #4
+   public void testValidatorRandomTesterAllSchemesOptions(Object[] testObjects) {
+	   
+	   for (int i = 0; i < 1000; i++)
+	   {
+		   Boolean expect = true;
+		   String value = "";
+		   Random randGen = new Random();
+		   
+		   ResultPair[] tempScheme = (ResultPair[]) testObjects[0];
+		   int randScheme = randGen.nextInt(tempScheme.length);
+		   value += tempScheme[randScheme].item;
+		   if (!tempScheme[randScheme].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempAuthority = (ResultPair[]) testObjects[1];
+		   int randAuthority = randGen.nextInt(tempAuthority.length);
+		   value += tempAuthority[randAuthority].item;
+		   if (!tempAuthority[randAuthority].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPort = (ResultPair[]) testObjects[2];
+		   int randPort = randGen.nextInt(tempPort.length);
+		   value += tempPort[randPort].item;
+		   if (!tempPort[randPort].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempPath = (ResultPair[]) testObjects[3];
+		   int randPath = randGen.nextInt(tempPath.length);
+		   value += tempPath[randPath].item;
+		   if (!tempPath[randPath].valid)
+			   expect = false;
+		   
+		   ResultPair[] tempQuery = (ResultPair[]) testObjects[4];
+		   int randQuery = randGen.nextInt(tempQuery.length);
+		   value += tempQuery[randQuery].item;
+		   if (!tempQuery[randQuery].valid)
+			   expect = false;
+		   
+           long options = UrlValidator.ALLOW_2_SLASHES + UrlValidator.ALLOW_ALL_SCHEMES;
+		   UrlValidator urlValidator = new UrlValidator(options);
+		   if (expect)
+		   {
+			   assertTrue(urlValidator.isValid(value));
+		   }
+		   else
+		   {
+			   assertFalse(urlValidator.isValid(value));
+		   }
+	   }
+}
+>>>>>>> ProjectPartB-RandomTests
 
    public void testValidator202() {
        String[] schemes = {"http","https"};
@@ -334,6 +589,7 @@ protected void setUp() {
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
+<<<<<<< HEAD
       for (int testPartsIndexIndex = testPartsIndex.length; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
           int index = testPartsIndex[testPartsIndexIndex];
          ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
@@ -342,6 +598,15 @@ protected void setUp() {
          if (carry) {
             if (index < part.length - 1) {
             	index--;
+=======
+      for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
+         int index = testPartsIndex[testPartsIndexIndex];
+         ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
+         maxIndex &= (index == (part.length - 1));
+         if (carry) {
+            if (index < part.length - 1) {
+               index++;
+>>>>>>> ProjectPartB-RandomTests
                testPartsIndex[testPartsIndexIndex] = index;
                carry = false;
             } else {
@@ -350,7 +615,12 @@ protected void setUp() {
             }
          }
       }
+<<<<<<< HEAD
       
+=======
+
+
+>>>>>>> ProjectPartB-RandomTests
       return (!maxIndex);
    }
 
@@ -465,7 +735,10 @@ protected void setUp() {
        assertFalse("IPv6 address without [] should not validate: " + url, validator.isValid(url));
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ProjectPartB-RandomTests
    public void testValidator353() { // userinfo
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://www.apache.org:80/path"));
@@ -508,6 +781,7 @@ protected void setUp() {
     * valid.
     */
    ResultPair[] testUrlScheme = {new ResultPair("http://", true),
+<<<<<<< HEAD
                                new ResultPair("ftp://", true),
                                new ResultPair("h3t://", true),
                                new ResultPair("3ht://", false),
@@ -517,6 +791,109 @@ protected void setUp() {
                                new ResultPair("://", false)};
 
    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+=======
+           new ResultPair("ftp://", true),
+           new ResultPair("h3t://", true),
+           new ResultPair("3ht://", false),
+           new ResultPair("http:/", false),
+           new ResultPair("http:", false),
+           new ResultPair("http/", false),
+           new ResultPair("://", false)};
+
+   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+              new ResultPair("www.google.com.", true),
+              new ResultPair("go.com", true),
+              new ResultPair("go.au", true),
+              new ResultPair("0.0.0.0", true),
+              new ResultPair("255.255.255.255", true),
+              new ResultPair("256.256.256.256", false),
+              new ResultPair("255.com", true),
+              new ResultPair("1.2.3.4.5", false),
+              new ResultPair("1.2.3.4.", false),
+              new ResultPair("1.2.3", false),
+              new ResultPair(".1.2.3.4", false),
+              new ResultPair("go.a", false),
+              new ResultPair("go.a1a", false),
+              new ResultPair("go.cc", true),
+              new ResultPair("go.1aa", false),
+              new ResultPair("aaa.", false),
+              new ResultPair(".aaa", false),
+              new ResultPair("aaa", false),
+              new ResultPair("", false)};
+   
+   ResultPair[] testUrlPort = {new ResultPair(":80", true),
+         new ResultPair(":65535", true), // max possible
+         new ResultPair(":65536", false), // max possible +1
+         new ResultPair(":0", true),
+         new ResultPair("", true),
+         new ResultPair(":-1", false),
+         new ResultPair(":65636", false),
+         new ResultPair(":999999999999999999", false),
+         new ResultPair(":65a", false)};
+   
+   ResultPair[] testPath = {new ResultPair("/test1", true),
+      new ResultPair("/t123", true),
+      new ResultPair("/$23", true),
+      new ResultPair("/..", false),
+      new ResultPair("/../", false),
+      new ResultPair("/test1/", true),
+      new ResultPair("", true),
+      new ResultPair("/test1/file", true),
+      new ResultPair("/..//file", false),
+      new ResultPair("/test1//file", false)};
+   
+//Test allow2slash, noFragment
+   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+                new ResultPair("/t123", true),
+                new ResultPair("/$23", true),
+                new ResultPair("/..", false),
+                new ResultPair("/../", false),
+                new ResultPair("/test1/", true),
+                new ResultPair("/#", false),
+                new ResultPair("", true),
+                new ResultPair("/test1/file", true),
+                new ResultPair("/t123/file", true),
+                new ResultPair("/$23/file", true),
+                new ResultPair("/../file", false),
+                new ResultPair("/..//file", false),
+                new ResultPair("/test1//file", true),
+                new ResultPair("/#/file", false)};
+
+   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
+          new ResultPair("?action=edit&mode=up", true),
+          new ResultPair("", true)};
+   
+   
+   
+   
+   //CS 362 Project Group MST - Random Test Fragment Arrays
+   ResultPair[] randomSchemeList = {new ResultPair("http://", true),
+		   							new ResultPair("HTTP://", true),
+									new ResultPair("https://", true),
+									new ResultPair("ftp://", true),
+									new ResultPair("h3t://", false),
+									new ResultPair("3ht://", false),
+									new ResultPair("http:/", false),
+									new ResultPair("http:", false),
+									new ResultPair("http/", false),
+									new ResultPair("://", false)};
+   
+   ResultPair[] randomSchemeAll = {new ResultPair("http://", true),
+								   new ResultPair("ftp://", true),
+								   new ResultPair("HTTP://", true),
+								   new ResultPair("h3t://", true),
+								   new ResultPair("3ht://", false),
+								   new ResultPair("http:/", false),
+								   new ResultPair("http:", false),
+								   new ResultPair("http/", false),
+								   new ResultPair("://", false),
+								   new ResultPair("abt://", true),
+								   new ResultPair("z1r://", true),
+								   new ResultPair("http", false)};
+   	
+
+   ResultPair[] randomAuthority = {new ResultPair("www.google.com", true),
+>>>>>>> ProjectPartB-RandomTests
                                   new ResultPair("www.google.com.", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
@@ -535,9 +912,15 @@ protected void setUp() {
                                   new ResultPair("aaa.", false),
                                   new ResultPair(".aaa", false),
                                   new ResultPair("aaa", false),
+<<<<<<< HEAD
                                   new ResultPair("", false)
    };
    ResultPair[] testUrlPort = {new ResultPair(":80", true),
+=======
+                                  new ResultPair("", false)};
+   
+   ResultPair[] randomPort = {new ResultPair(":80", true),
+>>>>>>> ProjectPartB-RandomTests
                              new ResultPair(":65535", true), // max possible
                              new ResultPair(":65536", false), // max possible +1
                              new ResultPair(":0", true),
@@ -545,9 +928,15 @@ protected void setUp() {
                              new ResultPair(":-1", false),
                              new ResultPair(":65636", false),
                              new ResultPair(":999999999999999999", false),
+<<<<<<< HEAD
                              new ResultPair(":65a", false)
    };
    ResultPair[] testPath = {new ResultPair("/test1", true),
+=======
+                             new ResultPair(":65a", false)};
+   
+   ResultPair[] randomPath = {new ResultPair("/test1", true),
+>>>>>>> ProjectPartB-RandomTests
                           new ResultPair("/t123", true),
                           new ResultPair("/$23", true),
                           new ResultPair("/..", false),
@@ -556,16 +945,27 @@ protected void setUp() {
                           new ResultPair("", true),
                           new ResultPair("/test1/file", true),
                           new ResultPair("/..//file", false),
+<<<<<<< HEAD
                           new ResultPair("/test1//file", false)
    };
    //Test allow2slash, noFragment
    ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+=======
+                          new ResultPair("/test1//file", false)};
+   
+   //Test allow2slash, noFragment
+   ResultPair[] randomPathOptions = {new ResultPair("/test1", true),
+>>>>>>> ProjectPartB-RandomTests
                                     new ResultPair("/t123", true),
                                     new ResultPair("/$23", true),
                                     new ResultPair("/..", false),
                                     new ResultPair("/../", false),
                                     new ResultPair("/test1/", true),
+<<<<<<< HEAD
                                     new ResultPair("/#", false),
+=======
+                                    new ResultPair("/#", true),
+>>>>>>> ProjectPartB-RandomTests
                                     new ResultPair("", true),
                                     new ResultPair("/test1/file", true),
                                     new ResultPair("/t123/file", true),
@@ -573,6 +973,7 @@ protected void setUp() {
                                     new ResultPair("/../file", false),
                                     new ResultPair("/..//file", false),
                                     new ResultPair("/test1//file", true),
+<<<<<<< HEAD
                                     new ResultPair("/#/file", false)
    };
 
@@ -583,6 +984,20 @@ protected void setUp() {
 
    Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
    Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
+=======
+                                    new ResultPair("/#/file", true)};
+
+   ResultPair[] randomQuery = {new ResultPair("?action=view", true),
+                              new ResultPair("?action=edit&mode=up", true),
+                              new ResultPair("", true)};
+
+   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
+   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
+   Object[] testUrlListParts = {randomSchemeList, randomAuthority, randomPort, randomPath, randomQuery};
+   Object[] testUrlPartsAllSchemes = {randomSchemeAll, randomAuthority, randomPort, randomPath, randomQuery};
+   Object[] testUrlPartsListOptions = {randomSchemeList, randomAuthority, randomPort, randomPathOptions, randomQuery};
+   Object[] testUrlPartsAllSchemesOptions = {randomSchemeAll, randomAuthority, randomPort, randomPathOptions, randomQuery};
+>>>>>>> ProjectPartB-RandomTests
    int[] testPartsIndex = {0, 0, 0, 0, 0};
 
    //---------------- Test data for individual url parts ----------------
