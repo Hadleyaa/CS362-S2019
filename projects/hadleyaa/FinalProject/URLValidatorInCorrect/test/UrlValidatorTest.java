@@ -1139,7 +1139,7 @@ protected void setUp() {
                                     new ResultPair("/..", false),
                                     new ResultPair("/../", false),
                                     new ResultPair("/test1/", true),
-                                    new ResultPair("/#", true),
+                                    new ResultPair("/#", false),
                                     new ResultPair("", true),
                                     new ResultPair("/test1/file", true),
                                     new ResultPair("/t123/file", true),
@@ -1147,7 +1147,7 @@ protected void setUp() {
                                     new ResultPair("/../file", false),
                                     new ResultPair("/..//file", false),
                                     new ResultPair("/test1//file", true),
-                                    new ResultPair("/#/file", true)};
+                                    new ResultPair("/#/file", false)};
 
    ResultPair[] randomQuery = {new ResultPair("?action=view", true),
                               new ResultPair("?action=edit&mode=up", true),
