@@ -124,29 +124,34 @@ protected void setUp() {
       }
    }
    
+   //CS 362 Project Group MST Random Test Helper #1
    public void testValidatorRandom1()
    {
 	   testValidatorRandomTesterSchemes(testUrlListParts);
    }
    
+   //CS 362 Project Group MST Random Test Helper #2
    public void testValidatorRandom2()
    {
 	   testValidatorRandomTesterAllSchemes(testUrlPartsAllSchemes);
    }
    
+   //CS 362 Project Group MST Random Test Helper #3
    public void testValidatorRandom3()
    {
 	   testValidatorRandomTesterOptions(testUrlPartsListOptions);
    }
    
+   //CS 362 Project Group MST Random Test Helper #4
    public void testValidatorRandom4()
    {
 	   testValidatorRandomTesterAllSchemesOptions(testUrlPartsAllSchemesOptions);
    }
    
+   //CS 362 Project Group MST Random Test #1
    public void testValidatorRandomTesterSchemes(Object[] testObjects) {
 	   
-	   for (int i = 0; i < 100; i++)
+	   for (int i = 0; i < 1000; i++)
 	   {
 		   Boolean expect = true;
 		   String value = "";
@@ -198,9 +203,10 @@ protected void setUp() {
 	   }
    }
    
+   //CS 362 Project Group MST Random Test #2
    public void testValidatorRandomTesterAllSchemes(Object[] testObjects) {
 	   
-	   for (int i = 0; i < 100; i++)
+	   for (int i = 0; i < 1000; i++)
 	   {
 		   Boolean expect = true;
 		   String value = "";
@@ -250,9 +256,10 @@ protected void setUp() {
 	   }
    }
    
+   //CS 362 Project Group MST Random Test #3
    public void testValidatorRandomTesterOptions(Object[] testObjects) {
 	   
-	   for (int i = 0; i < 100; i++)
+	   for (int i = 0; i < 1000; i++)
 	   {
 		   Boolean expect = true;
 		   String value = "";
@@ -302,9 +309,10 @@ protected void setUp() {
 	   }
    }
 
+   //CS 362 Project Group MST Random Test #4
    public void testValidatorRandomTesterAllSchemesOptions(Object[] testObjects) {
 	   
-	   for (int i = 0; i < 100; i++)
+	   for (int i = 0; i < 1000; i++)
 	   {
 		   Boolean expect = true;
 		   String value = "";
@@ -809,7 +817,7 @@ protected void setUp() {
    
    
    
-   //Random Test fragment arrays
+   //CS 362 Project Group MST - Random Test Fragment Arrays
    ResultPair[] randomSchemeList = {new ResultPair("http://", true),
 		   							new ResultPair("HTTP://", true),
 									new ResultPair("https://", true),
