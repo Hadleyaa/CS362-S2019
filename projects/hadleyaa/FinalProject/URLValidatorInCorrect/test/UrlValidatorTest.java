@@ -498,7 +498,160 @@ protected void setUp() {
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
    
+   //CS 362 Project Group MST Unit Test #1 
+   public void testScheme() {
+	   String [] scheme = {"http", "ftp", "https"};
+	   
+	   //Call with defaults
+	   UrlValidator defaultValidator = new UrlValidator();
+	   
+	   //Tests for http
+	   
+	   //Positive tests
+	   assertTrue("valid scheme 'http://'", defaultValidator.isValid("http://www.google.com:80/test1?action=view"));
+	   assertTrue("Case sensitive test 'HTTP://'", defaultValidator.isValid("HTTP://www.google.com:80/test1?action=view"));
+	   
+	   //Negative tests
+	   assertFalse("invalid, bad scheme name, 'htp://'", defaultValidator.isValid("htp://www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash no colon, 'http/'", defaultValidator.isValid("http/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double slash no colon, 'http//'", defaultValidator.isValid("http//www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, colon slash, 'http:/'", defaultValidator.isValid("http:/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash colon, 'http/:'", defaultValidator.isValid("http/:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double colon, 'http::'", defaultValidator.isValid("http::www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, single colon, 'http:'", defaultValidator.isValid("http:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, no slash no colon, 'http'", defaultValidator.isValid("httpwww.google.com:80/test1?action=view"));
+	 
+	   //Tests for https
+	   
+	   //Positive tests
+	   assertTrue("valid scheme 'https://'", defaultValidator.isValid("https://www.google.com:80/test1?action=view"));
+	   assertTrue("Case sensitive test 'HTTPS://'", defaultValidator.isValid("HTTPS://www.google.com:80/test1?action=view"));
+	   
+	   //Negative tests
+	   assertFalse("invalid, bad scheme name, 'htps://'", defaultValidator.isValid("htps://www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash no colon, 'https/'", defaultValidator.isValid("https/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double slash no colon, 'https//'", defaultValidator.isValid("https//www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, colon slash, 'https:/'", defaultValidator.isValid("https:/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash colon, 'https/:'", defaultValidator.isValid("https/:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double colon, 'https::'", defaultValidator.isValid("https::www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, single colon 'https:'", defaultValidator.isValid("https:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, no slash no colon, 'https'", defaultValidator.isValid("httpswww.google.com:80/test1?action=view"));
+	   
+	   //Test for ftp
+	   
+	   //Positive tests
+	   assertTrue("valid scheme 'ftp://'", defaultValidator.isValid("ftp://www.google.com:80/test1?action=view"));
+	   assertTrue("Case sensitive test 'FTP://'", defaultValidator.isValid("FTP://www.google.com:80/test1?action=view"));
+	   
+	   //Negative tests
+	   assertFalse("invalid, bad scheme name, 'fp://'", defaultValidator.isValid("fp://www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash no colon, 'ftp/'", defaultValidator.isValid("ftp/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double slash no colon, 'ftp//'", defaultValidator.isValid("ftp//www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, colon slash, 'ftp:/'", defaultValidator.isValid("ftp:/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash colon, 'ftp/:'", defaultValidator.isValid("ftp/:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double colon, 'ftp::'", defaultValidator.isValid("ftp::www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, single colon, 'ftp:'", defaultValidator.isValid("ftp:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, no slash no colon, 'ftp'", defaultValidator.isValid("ftpwww.google.com:80/test1?action=view"));
+	   
+	   //Test blank scheme
+	   assertFalse("invalid, blank scheme ''", defaultValidator.isValid("www.google.com:80/test1?action=view"));
+	  
+	   //Test with ALLOW_ALL_SCHEMES flag set
+	   UrlValidator allSchemes = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   //Positive tests
+	   assertTrue("valid scheme 'ssh://'", allSchemes.isValid("ssh://www.google.com:80/test1?action=view"));
+	   assertTrue("valid scheme case 'SSH://'", allSchemes.isValid("SSH://www.google.com:80/test1?action=view"));
+	   //Should return true as ALLOW_ALL_SCHEMES allows any char input for prefix behind "://"
+	   assertTrue("valid, bad scheme w/ ALLOW_ALL_SCHEMES 'sH://'", allSchemes.isValid("sH://www.google.com:80/test1?action=view"));
+	   
+	   //Negative tests
+	   assertFalse("invalid, slash no colon 'ssh/", allSchemes.isValid("ssh/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double slash no colon 'ssh//", allSchemes.isValid("ssh//www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, colon slash 'ssh:/", allSchemes.isValid("ssh:/www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, slash colon 'ssh/:", allSchemes.isValid("ssh/:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, double colon 'ssh::", allSchemes.isValid("ssh::www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, single colon 'ssh:", allSchemes.isValid("ssh:www.google.com:80/test1?action=view"));
+	   assertFalse("invalid, no slash no colon 'ssh", allSchemes.isValid("sshwww.google.com:80/test1?action=view"));
+	   
+   }
    
+   //CS 362 Project Group MST Unit Test #2 
+   public void testAuthority() {
+	   UrlValidator defaultValidator = new UrlValidator();
+	   
+	   //Positive tests
+	   assertTrue("valid, .com authority 'www.google.com'", defaultValidator.isValid("http://www.google.com:80/test1/?action=view"));
+	   assertTrue("valid, .com authority 'www.bing.com'", defaultValidator.isValid("http://www.bing.com:80/test1/?action=view"));
+	   assertTrue("valid, .edu authority, 'www.osu.edu'", defaultValidator.isValid("http://www.osu.edu:80/test1/?action=view"));
+	   assertTrue("valid, .org authority, 'www.craigslist.org'", defaultValidator.isValid("http://www.craigslist.org:80/test1/?action=view"));
+	   assertTrue("valid, .gov authority, 'www.usa.gov'", defaultValidator.isValid("http://www.usa.gov:80/test1/?action=view"));
+	   assertTrue("valid, .net authority, 'www.minecraft.net'", defaultValidator.isValid("http://www.minecraft.net:80/test1/?action=view"));
+	   assertTrue("valid, .mil authority, 'www.us.army.mil'", defaultValidator.isValid("http://www.us.army.mil:80/test1/?action=view"));
+	   assertTrue("valid, .int authority, 'www.who.int'", defaultValidator.isValid("http://www.who.int:80/test1/?action=view"));
+	   assertTrue("valid, long authority w/ valid format", defaultValidator.isValid("http://www.12345678910abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.com:80/test1/?action=view"));
+	   assertTrue("valid, IP address w/ format '192.168.1.1'", defaultValidator.isValid("http://192.168.1.1/test1/?action=view"));
+	   
+	   
+	   //Negative tests
+	   assertFalse("invalid, unformated numeric '12345'", defaultValidator.isValid("http://12345:80/test1/?action=view"));
+	   assertFalse("invalid, unformated character 'abcde'", defaultValidator.isValid("http://abcde:80/test1/?action=view"));
+	   assertFalse("invalid, no periods 'wwwgooglecom'", defaultValidator.isValid("http://wwwgooglecom/test1/?action=view"));
+	   assertFalse("invalid, IP only", defaultValidator.isValid("192.168.1.1"));
+	   assertFalse("invalid, bad IP address w/ format '256.256.256.256'", defaultValidator.isValid("http://256.256.256.256/test1/?action=view"));
+	   assertFalse("invalid, bad IP only", defaultValidator.isValid("256.256.256.256"));
+	   
+	   
+	   //Boundry tests
+	   assertFalse("invalid authority 'www..com'", defaultValidator.isValid("http://www..com:80/test1/?action=view"));
+	   assertFalse("invalid, no authority with port ''", defaultValidator.isValid("http://:80/test1/?action=view"));
+	   assertFalse("invalid, no authority no port ''", defaultValidator.isValid("http:///test1/?action=view"));
+	   
+	   
+	   //Test ALLOW_LOCAL_URLS
+	   UrlValidator localUrls = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+	   assertTrue("valid authority 'localhost'", localUrls.isValid("http://localhost:80/test1/?action=view"));
+	   assertTrue("valid authority 'machine'", localUrls.isValid("http://machine:80/test1/?action=view"));
+	   
+   }
+   
+   //CS 362 Project Group MST Unit Test #3 
+   public void testPort() {
+	  UrlValidator urlValidator = new UrlValidator();
+	 
+	  
+	  String urlPrefix = "http://www.google.com:";
+	  String urlSuffix = "/test1/?action=view";
+	  String testPrefix = "valid port :" ;
+	 
+	  //Test every valid port number
+	  int i = 0;
+	  for(i = 0 ; i < 65535 ; i++) {
+		  
+		 String urlFull = urlPrefix + i + urlSuffix ;
+		 String testName = testPrefix + i ;
+		 assertTrue(testPrefix, urlValidator.isValid(urlFull));
+		  
+	  }
+	  
+	  //Boundary tests
+	  assertFalse("invalid port ':65536'", urlValidator.isValid("http://www.google.com:65536/test1/?action=view"));
+	  assertFalse("invalid port ':-1'", urlValidator.isValid("http://www.bing.com:-1/test1/?action=view"));
+	  
+	  //Negative tests
+	  assertTrue("valid, no port given", urlValidator.isValid("http://www.bing.com/test1/?action=view"));
+	  assertFalse("invalid, char port ':abcde'", urlValidator.isValid("http://www.google.com:abcde/test1/?action=view"));
+	  assertFalse("invalid, decimal port ':1.00'", urlValidator.isValid("http://www.bing.com:1.00/test1/?action=view"));
+	  assertFalse("invalid, port no colon and slash '^&()'", urlValidator.isValid("http://www.google.com:^&()/test1/?action=view"));
+	  assertFalse("invalid, question mark port ':?'", urlValidator.isValid("http://www.google.com:?/test1/?action=view"));
+	  assertFalse("invalid, hash port ':#'", urlValidator.isValid("http://www.google.com:#/test1/?action=view"));
+	  assertFalse("invalid, colon port '::'", urlValidator.isValid("http://www.google.com::/test1/?action=view"));
+	  assertFalse("invalid, dollar port ':$'", urlValidator.isValid("http://www.google.com:$/test1/?action=view"));
+	  assertFalse("invalid, white space port ': '", urlValidator.isValid("http://www.google.com: /test1/?action=view"));
+	  
+   }
+   
+   //CS 362 Project Group MST Unit Test #4 
    public void testValidatorPath() {
 	   UrlValidator validator = new UrlValidator();
 	   assertTrue(validator.isValid("http://example.com"));
@@ -519,6 +672,7 @@ protected void setUp() {
 	   
    }
    
+   //CS 362 Project Group MST Unit Test #5 
    public void testValidatorPathOptions() {
 	   UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
 	   assertTrue(validator.isValid("http://example.com"));
@@ -537,6 +691,7 @@ protected void setUp() {
 	   assertFalse(validator.isValid("http://example.com//"));
    }
    
+   //CS 362 Project Group MST Unit Test #6 
    public void testValidatorQuery() {
 	   UrlValidator urlValidator = new UrlValidator();
 	   assertTrue(urlValidator.isValid("http://google.com?klsda_fasd)f9(#@*@^&"));
@@ -553,6 +708,7 @@ protected void setUp() {
 	   
    }
    
+   //CS 362 Project Group MST Unit Test #7 
    public void testValidatorAllValid() {
 	   String[] schemes = {"http","https", "ftp", "h3t"};
 	   UrlValidator urlValidator = new UrlValidator(schemes);
@@ -572,7 +728,7 @@ protected void setUp() {
 	   assertTrue(urlValidator.isValid("https://www.google.com/maps/place/Paris,+France/@48.8589507,2.27702,12z/data=!3m1!4b1!4m5!3m4!1s0x47e66e1f06e2b70f:0x40b82c3688c9460!8m2!3d48.856614!4d2.3522219"));
    }
 
-   
+   //CS 362 Project Group MST Unit Test #8 
    public void testValidatorInvalid() {
 	   UrlValidator validator = new UrlValidator();
 	   assertFalse(validator.isValid(""));
