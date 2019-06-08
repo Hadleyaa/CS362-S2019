@@ -16,10 +16,7 @@
  */
 
 import junit.framework.TestCase;
-<<<<<<< HEAD
-=======
 import java.util.Random;
->>>>>>> ProjectPartB-RandomTests
 
 /**
  * Performs Validation Test for url validations.
@@ -95,28 +92,17 @@ protected void setUp() {
       do {
           StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
-<<<<<<< HEAD
          
-         for (int testPartsIndexIndex = 0; testPartsIndexIndex < 0; ++testPartsIndexIndex) {
-            int index = testPartsIndex[testPartsIndexIndex];
-            
-            ResultPair[] part = (ResultPair[]) testObjects[-1];
-=======
          for (int testPartsIndexIndex = 0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) {
             int index = testPartsIndex[testPartsIndexIndex];
             ResultPair[] part = (ResultPair[]) testObjects[testPartsIndexIndex];
->>>>>>> ProjectPartB-RandomTests
+
             testBuffer.append(part[index].item);
             expected &= part[index].valid;
          }
          String url = testBuffer.toString();
-<<<<<<< HEAD
-         
-         boolean result = !urlVal.isValid(url);
-=======
          boolean result = urlVal.isValid(url);
          
->>>>>>> ProjectPartB-RandomTests
          assertEquals(url, expected, result);
          if (printStatus) {
             if (printIndex) {
@@ -139,8 +125,6 @@ protected void setUp() {
          System.out.println();
       }
    }
-<<<<<<< HEAD
-=======
    
    //CS 362 Project Group MST Random Test Helper #1
    public void testValidatorRandom1()
@@ -378,7 +362,6 @@ protected void setUp() {
 		   }
 	   }
 }
->>>>>>> ProjectPartB-RandomTests
 
    public void testValidator202() {
        String[] schemes = {"http","https"};
@@ -589,16 +572,7 @@ protected void setUp() {
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
-<<<<<<< HEAD
-      for (int testPartsIndexIndex = testPartsIndex.length; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
-          int index = testPartsIndex[testPartsIndexIndex];
-         ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
-         maxIndex &= (index == (part.length - 1));
-         
-         if (carry) {
-            if (index < part.length - 1) {
-            	index--;
-=======
+
       for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
          int index = testPartsIndex[testPartsIndexIndex];
          ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
@@ -606,7 +580,6 @@ protected void setUp() {
          if (carry) {
             if (index < part.length - 1) {
                index++;
->>>>>>> ProjectPartB-RandomTests
                testPartsIndex[testPartsIndexIndex] = index;
                carry = false;
             } else {
@@ -615,12 +588,7 @@ protected void setUp() {
             }
          }
       }
-<<<<<<< HEAD
-      
-=======
 
-
->>>>>>> ProjectPartB-RandomTests
       return (!maxIndex);
    }
 
@@ -735,10 +703,6 @@ protected void setUp() {
        assertFalse("IPv6 address without [] should not validate: " + url, validator.isValid(url));
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ProjectPartB-RandomTests
    public void testValidator353() { // userinfo
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://www.apache.org:80/path"));
@@ -781,17 +745,6 @@ protected void setUp() {
     * valid.
     */
    ResultPair[] testUrlScheme = {new ResultPair("http://", true),
-<<<<<<< HEAD
-                               new ResultPair("ftp://", true),
-                               new ResultPair("h3t://", true),
-                               new ResultPair("3ht://", false),
-                               new ResultPair("http:/", false),
-                               new ResultPair("http:", false),
-                               new ResultPair("http/", false),
-                               new ResultPair("://", false)};
-
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
-=======
            new ResultPair("ftp://", true),
            new ResultPair("h3t://", true),
            new ResultPair("3ht://", false),
@@ -893,7 +846,6 @@ protected void setUp() {
    	
 
    ResultPair[] randomAuthority = {new ResultPair("www.google.com", true),
->>>>>>> ProjectPartB-RandomTests
                                   new ResultPair("www.google.com.", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
@@ -912,15 +864,9 @@ protected void setUp() {
                                   new ResultPair("aaa.", false),
                                   new ResultPair(".aaa", false),
                                   new ResultPair("aaa", false),
-<<<<<<< HEAD
-                                  new ResultPair("", false)
-   };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
-=======
                                   new ResultPair("", false)};
    
    ResultPair[] randomPort = {new ResultPair(":80", true),
->>>>>>> ProjectPartB-RandomTests
                              new ResultPair(":65535", true), // max possible
                              new ResultPair(":65536", false), // max possible +1
                              new ResultPair(":0", true),
@@ -928,15 +874,9 @@ protected void setUp() {
                              new ResultPair(":-1", false),
                              new ResultPair(":65636", false),
                              new ResultPair(":999999999999999999", false),
-<<<<<<< HEAD
-                             new ResultPair(":65a", false)
-   };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
-=======
                              new ResultPair(":65a", false)};
    
    ResultPair[] randomPath = {new ResultPair("/test1", true),
->>>>>>> ProjectPartB-RandomTests
                           new ResultPair("/t123", true),
                           new ResultPair("/$23", true),
                           new ResultPair("/..", false),
@@ -945,27 +885,16 @@ protected void setUp() {
                           new ResultPair("", true),
                           new ResultPair("/test1/file", true),
                           new ResultPair("/..//file", false),
-<<<<<<< HEAD
-                          new ResultPair("/test1//file", false)
-   };
-   //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
-=======
                           new ResultPair("/test1//file", false)};
    
    //Test allow2slash, noFragment
    ResultPair[] randomPathOptions = {new ResultPair("/test1", true),
->>>>>>> ProjectPartB-RandomTests
                                     new ResultPair("/t123", true),
                                     new ResultPair("/$23", true),
                                     new ResultPair("/..", false),
                                     new ResultPair("/../", false),
                                     new ResultPair("/test1/", true),
-<<<<<<< HEAD
-                                    new ResultPair("/#", false),
-=======
                                     new ResultPair("/#", true),
->>>>>>> ProjectPartB-RandomTests
                                     new ResultPair("", true),
                                     new ResultPair("/test1/file", true),
                                     new ResultPair("/t123/file", true),
@@ -973,18 +902,6 @@ protected void setUp() {
                                     new ResultPair("/../file", false),
                                     new ResultPair("/..//file", false),
                                     new ResultPair("/test1//file", true),
-<<<<<<< HEAD
-                                    new ResultPair("/#/file", false)
-   };
-
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
-                              new ResultPair("?action=edit&mode=up", true),
-                              new ResultPair("", true)
-   };
-
-   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
-   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
-=======
                                     new ResultPair("/#/file", true)};
 
    ResultPair[] randomQuery = {new ResultPair("?action=view", true),
@@ -997,7 +914,7 @@ protected void setUp() {
    Object[] testUrlPartsAllSchemes = {randomSchemeAll, randomAuthority, randomPort, randomPath, randomQuery};
    Object[] testUrlPartsListOptions = {randomSchemeList, randomAuthority, randomPort, randomPathOptions, randomQuery};
    Object[] testUrlPartsAllSchemesOptions = {randomSchemeAll, randomAuthority, randomPort, randomPathOptions, randomQuery};
->>>>>>> ProjectPartB-RandomTests
+
    int[] testPartsIndex = {0, 0, 0, 0, 0};
 
    //---------------- Test data for individual url parts ----------------
